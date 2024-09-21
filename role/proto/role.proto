@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package role;
+
+option go_package = "./proto/role";
+
+service Role {
+	rpc AddRole(AddRoleRequest) returns (AddRoleResponse) {}
+	rpc EditRole(EditRoleRequest) returns (EditRoleResponse) {}
+	rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse) {}
+	rpc GetRoleList(GetRoleListRequest) returns (GetRoleListResponse) {}
+	rpc GetRoleInfo(GetRoleInfoRequest) returns (GetRoleInfoResponse) {}
+}
+
+message AddRoleRequest {
+	string title = 1;
+	string description = 2;
+}
+
+message AddRoleResponse {
+	int32 status = 1;  // 0表示成功，-1表示失败
+	string message = 2;
+}
+
+
+message EditRoleRequest {
+	int32 id = 1;
+	string title = 2;
+	string description = 3;
+}
+
+message EditRoleResponse {
+	int32 status = 1;  // 0表示成功，-1表示失败
+	string message = 2;
+}
+
+
+message DeleteRoleRequest {
+	int32 id = 1;
+}
+
+message DeleteRoleResponse {
+	int32 status = 1;  // 0表示成功，-1表示失败
+	string message = 2;
+}
+
+
+message RoleItem {  // 添加时间传不过去
+	int32 id = 1;
+	string title = 2;
+	string description = 3;
+	int32 status = 4;
+}
+
+
+message GetRoleListRequest {
+}
+
+message GetRoleListResponse {
+	int32 status = 1;  // 0表示成功，-1表示失败
+	string message = 2;
+	repeated RoleItem roleList = 3;
+}
+
+
+message GetRoleInfoRequest {
+	int32 id = 1;
+}
+
+message GetRoleInfoResponse {
+	int32 status = 1;  // 0表示成功，-1表示失败
+	string message = 2;
+	RoleItem roleInfo = 3;
+}
