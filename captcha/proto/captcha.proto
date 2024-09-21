@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package captcha;
+
+option go_package = "./proto/captcha";
+
+service Captcha {
+	rpc GenerateCaptcha(GenerateCaptchaRequest) returns (GenerateCaptchaResponse) {}
+	rpc VerifyCaptcha(VerifyCaptchaRequest) returns (VerifyCaptchaResponse) {}
+}
+
+message GenerateCaptchaRequest {  // 生成验证码需要的一些参数
+	int32 height = 1;
+	int32 width = 2;
+	int32 length = 3;
+}
+
+message GenerateCaptchaResponse {  // 生成的验证码带有的一些信息
+	string id = 1;
+	string b64s = 2;
+	string answer = 3;
+}
+
+message VerifyCaptchaRequest {   //验证验证码需要的参数
+	string id = 1;
+	string verify_string = 2;  // 用户输入的验证码(待验证)
+}
+
+message VerifyCaptchaResponse {
+	bool verify_pass = 1;
+}
